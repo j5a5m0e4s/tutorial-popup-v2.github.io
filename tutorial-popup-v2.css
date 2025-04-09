@@ -1,0 +1,432 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: #f5f5f5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    position: relative;
+}
+
+.container {
+    width: 100%;
+    max-width: 800px;
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin: 20px;
+    position: relative;
+}
+
+.content {
+    padding: 20px;
+    text-align: center;
+}
+
+.content h1 {
+    margin-bottom: 20px;
+    color: #333;
+}
+
+/* 教學按鈕樣式 */
+.tutorial-btn {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background-color: #0066cc;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 18px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+    z-index: 100;
+}
+
+.tutorial-btn:hover {
+    background-color: #0055aa;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
+    transform: scale(1.05);
+}
+
+/* 彈跳視窗樣式 */
+.tutorial-popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    backdrop-filter: blur(5px);
+    transition: all 0.3s ease;
+}
+
+.tutorial-popup.active {
+    display: flex;
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.popup-content {
+    background-color: white;
+    border-radius: 16px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    width: 90%;
+    max-width: 550px;
+    max-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    transform: scale(0.95);
+    animation: scaleIn 0.3s ease forwards;
+}
+
+@keyframes scaleIn {
+    to { transform: scale(1); }
+}
+
+.popup-header {
+    padding: 20px 25px;
+    background-color: #0066cc;
+    color: white;
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.popup-header h2 {
+    font-size: 20px;
+    margin: 0;
+    font-weight: 600;
+}
+
+.progress-container {
+    height: 5px;
+    width: 100%;
+    background-color: #e6e6e6;
+    margin: 0;
+}
+
+.progress-bar {
+    height: 100%;
+    width: 33.33%;
+    background-color: #00a8ff;
+    transition: width 0.3s ease;
+    box-shadow: 0 0 5px rgba(0, 168, 255, 0.5);
+}
+
+.step-indicator {
+    color: white;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.popup-body {
+    padding: 0;
+    overflow: hidden;
+    position: relative;
+    flex-grow: 1;
+}
+
+.tutorial-step {
+    display: none;
+    padding: 25px;
+    transition: opacity 0.3s ease;
+}
+
+.tutorial-step.active {
+    display: block;
+    animation: fadeIn 0.3s ease;
+}
+
+/* 圖片標題區域 */
+.image-header {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 5px;
+}
+
+.tutorial-image {
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.image-placeholder {
+    background-color: #f8f8f8;
+    height: 180px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: #888;
+}
+
+.image-placeholder i {
+    font-size: 40px;
+    margin-bottom: 10px;
+}
+
+.tutorial-text {
+    color: #333;
+    line-height: 1.5;
+}
+
+.tutorial-text p {
+    font-size: 12px;
+    color: #555;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    letter-spacing: 0.2px;
+}
+
+.popup-footer {
+    padding: 15px 20px;
+    background-color: #f8f9fa;
+    border-top: 1px solid #eee;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.left-section {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+}
+
+/* 導航按鈕 - 桌面版 */
+.navigation-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.nav-btn {
+    background-color: #0066cc;
+    color: white;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+    padding: 8px 15px;
+    border-radius: 4px;
+    font-size: 13px;
+}
+
+.nav-btn:disabled {
+    background-color: #cccccc;
+    box-shadow: none;
+    cursor: not-allowed;
+    opacity: 0.5;
+}
+
+.nav-btn:hover:not(:disabled) {
+    background-color: #0055aa;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+}
+
+.btn-active {
+    transform: scale(0.95) !important;
+}
+
+/* 滑動提示 */
+.swipe-hint {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 15px;
+    pointer-events: none;
+    z-index: 10;
+}
+
+.swipe-hint i {
+    color: rgba(0, 102, 204, 0.3);
+    font-size: 24px;
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+    0% { opacity: 0.3; transform: translateX(0); }
+    50% { opacity: 0.8; transform: translateX(5px); }
+    100% { opacity: 0.3; transform: translateX(0); }
+}
+
+.swipe-hint i:first-child {
+    animation: pulseLeft 1.5s infinite;
+}
+
+@keyframes pulseLeft {
+    0% { opacity: 0.3; transform: translateX(0); }
+    50% { opacity: 0.8; transform: translateX(-5px); }
+    100% { opacity: 0.3; transform: translateX(0); }
+}
+
+/* 關鍵詞高亮 */
+.highlight {
+    color: #0066cc;
+    font-weight: 600;
+}
+
+/* 下載連結樣式 */
+.download-link {
+    color: #0066cc;
+    font-size: 11px;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    transition: all 0.2s ease;
+    font-weight: 400;
+    padding: 2px 0;
+}
+
+.download-link i {
+    font-size: 11px;
+}
+
+.download-link:hover {
+    color: #0055aa;
+    text-decoration: underline;
+}
+
+/* 下載反饋提示 */
+.download-feedback {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(0, 102, 204, 0.9);
+    color: white;
+    padding: 12px 20px;
+    border-radius: 30px;
+    font-size: 14px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    z-index: 2000;
+    animation: slideUp 0.3s ease;
+}
+
+.download-feedback i {
+    color: #ffffff;
+    font-size: 16px;
+}
+
+.download-feedback.fade-out {
+    opacity: 0;
+    transform: translate(-50%, 20px);
+    transition: all 0.5s ease;
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translate(-50%, 20px);
+    }
+    to {
+        opacity: 1;
+        transform: translate(-50%, 0);
+    }
+}
+
+/* 響應式設計 - 手機版 */
+@media (max-width: 768px) {
+    .navigation-buttons {
+        display: none;
+    }
+    
+    .popup-footer {
+        justify-content: center;
+    }
+    
+    .left-section {
+        align-items: center;
+        margin-bottom: 10px;
+    }
+    
+    .download-link {
+        margin-top: 5px;
+        font-size: 11px;
+    }
+    
+    .footer-left {
+        align-items: center;
+        order: 2;
+    }
+    
+    .close-btn {
+        order: 1;
+        width: 100%;
+        max-width: 200px;
+    }
+    
+    .swipe-hint {
+        display: flex;
+    }
+    
+    .tutorial-text p {
+        font-size: 11px;
+    }
+    
+    .download-link {
+        margin-top: 5px;
+    }
+}
+
+.close-btn {
+    padding: 8px 18px;
+    background-color: #0066cc;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 600;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+.close-btn:hover {
+    background-color: #0055aa;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
+}
+
+/* 響應式設計 */
+@media (max-width: 600px) {
+    .popup-content {
+        width: 95%;
+    }
+    
+    .tutorial-image {
+        height: 150px;
+    }
+}
